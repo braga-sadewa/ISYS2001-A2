@@ -45,7 +45,7 @@ This project develops a **Smart Finance Tracker** — a centralized, user-friend
 4. **Transaction List Output** — Clean table view of all recorded transactions
 5. **Dashboard Generation** — Monthly and annual visual dashboards with charts
 6. **AI Finance Assistant** — Gemini-powered persona analyzing and summarizing metrics
-7. **Multi-Currency Support** — Input transactions in any currency (editable per session)
+7. **OPTIONAL: Multi-Currency Support** — Input transactions in any currency (editable per session)
 
 ### Out of Scope
 - Automated banking app integration (manual input only)
@@ -91,7 +91,7 @@ The app is built using **Gradio**, a Python framework for creating web-based int
 ### Key Features
 - Real-time validation and error handling
 - Auto-completion and recall of previous inputs (categories, accounts)
-- Interactive charts (bar charts for monthly, line charts for annual trends, pie charts for categories)
+- Interactive charts (column or bar charts for monthly and annual trends, pie or doughnut charts for categories, tables to show list of accounts)
 - Clean, tabular transaction list
 - Live Gradio link generated when running the notebook
 
