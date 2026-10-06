@@ -6,6 +6,7 @@
 - [Scope & Deliverables](#scope--deliverables)
 - [System Architecture: 7 Core Jobs](#system-architecture-7-core-jobs)
 - [Gradio Integration & UI](#gradio-integration--ui)
+- [Sample Input & Output](#sample-input--output)
 - [How to Access the App](#how-to-access-the-app)
 - [AI Documentation](#ai-documentation)
 
@@ -104,6 +105,79 @@ The app is built using **Gradio**, a Python framework for creating web-based int
 
 ---
 
+## Sample Input & Output
+
+This section demonstrates the core behavior of the app in a simple, realistic example. It shows how a user can add transactions, view their financial list, and receive AI-supported insights from the dashboard.
+
+### Example Input
+
+#### User Profile
+```
+Name: Sarah
+Currency: AUD
+```
+
+#### Transaction Entries
+```
+Date: 2024-10-01
+Type: Expense
+Amount: 45.50
+Category: Groceries
+Account: Commonwealth Bank
+
+Date: 2024-10-02
+Type: Income
+Amount: 1500.00
+Category: Salary
+Account: Commonwealth Bank
+
+Date: 2024-10-03
+Type: Expense
+Amount: 120.00
+Category: Entertainment
+Account: Westpac
+```
+
+### Example Output
+
+#### Transaction Table
+```
+| ID | Date       | Type    | Amount   | Category      | Account            |
+|----|------------|---------|----------|---------------|--------------------|
+| 1  | 2024-10-01 | Expense | -45.50   | Groceries     | Commonwealth Bank  |
+| 2  | 2024-10-02 | Income  | 1500.00  | Salary        | Commonwealth Bank  |
+| 3  | 2024-10-03 | Expense | -120.00  | Entertainment | Westpac            |
+```
+
+#### Dashboard Summary
+```
+Total Income (October 2024): AUD 1500.00
+Total Expenses (October 2024): AUD 165.50
+Net Cash Flow: AUD 1334.50
+
+Expenses by Category:
+- Groceries: AUD 45.50 (27.5%)
+- Entertainment: AUD 120.00 (72.5%)
+
+Income by Account:
+- Commonwealth Bank: AUD 1500.00
+
+Expense by Account:
+- Commonwealth Bank: AUD 45.50
+- Westpac: AUD 120.00
+```
+
+#### AI Assistant Example
+```
+User: "How much did I spend on entertainment?"
+
+AI: "Hi! Based on your recent data, you spent AUD 120.00 on entertainment this month. This makes up 72.5% of your total spending, so it is currently the largest expense category. If you want, I can also suggest ways to reduce this category next month. Take care!"
+```
+
+This demonstrates how the project works as a user-friendly personal finance assistant: data is entered, categorised, summarised, and then explained in a natural language format.
+
+---
+
 ## How to Access the App
 
 ### Step-by-Step Instructions
@@ -143,22 +217,54 @@ This project incorporates AI assistance at two key stages:
 - **Transparency:** I documented intentionally which outputs I accepted, rejected, and modified, rather than blindly copying AI-generated output
 - **Importance:** This reflects my actual AI use in the project, where ChatGPT was used as a coding assistant and planning translator
 
-#### 2. **Runtime AI (Google Gemini)**
-- **Purpose:** Provide friendly, beginner-friendly financial insights during app usage
-- **Integration:** Users can ask the AI assistant questions about their transaction list and dashboard data
-- **Personality:** Casual tone, beginner-friendly explanations, and friendly greetings/closings
-- **Capabilities:** Analyzes spending patterns, explains trends, and provides context-aware insights based on actual user data
+#### 2. **Runtime AI (Google Gemini 3.5 Flash)**
 
-### AI Highlights
-- Clear separation between **development-time AI** (ChatGPT for code generation and translation) and **runtime AI** (Gemini as the user-facing finance assistant)
-- Transparent documentation of AI-assisted development decisions
-- AI supported the design-to-code workflow, while still requiring human evaluation and refinement
-- Gemini remains a lightweight assistant for interpreting financial data after the app was built
+**Purpose:** Provide friendly, beginner-friendly financial insights during app usage.
+
+**How it Works in the App:**
+- The user enters transactions into the Gradio interface
+- The app calculates totals, category breakdowns, and account summaries
+- This structured financial data is passed to the Gemini model through the AI assistant feature
+- Gemini interprets the numbers and produces a natural-language explanation in a simple, conversational tone
+
+**Why Gemini Was Chosen:**
+- It is lightweight and fast for quick user interaction
+- It responds naturally without rigid financial jargon
+- It helps everyday users understand their spending patterns more easily
+- It works well in a personal finance context where users want simple explanations, not technical or overly formal advice
+
+**Personality & Communication Style:**
+- **Casual & Approachable:** Uses friendly greetings and a warm tone
+- **Beginner-Friendly:** Avoids jargon and explains results in plain language
+- **Context-Aware:** Uses real financial data from the user's entries
+- **Helpful & Practical:** Can answer questions like spending trends, category totals, balance summaries, and unusual changes
+
+**Example Queries Gemini Can Answer:**
+- "How much did I spend on food this month?"
+- "What is my biggest expense category?"
+- "Am I spending more than I earn?"
+- "Can you explain my recent spending trend?"
+
+**What Gemini Does Not Do:**
+- It does not invent missing financial data
+- It does not claim to be a qualified financial advisor
+- It only responds based on the information the app provides
+
+**Safety & Reliability:**
+- The app passes only calculated, visible financial data to the AI assistant
+- Errors are handled gracefully if Gemini is unavailable or the API request fails
+- AI advice is framed as general guidance rather than professional financial advice
+
+**Model Details:**
+- **Model:** Google Gemini 3.5 Flash
+- **Library:** `google-genai`
+- **Purpose:** Fast, responsive financial explanation generation in the app interface
 
 ### AI Responsibility and Limits
 - AI was used to accelerate planning and implementation, but the final logic was reviewed and adapted by the developer
-- Gemini advice is presented as general guidance rather than professional financial advice
-- The runtime assistant only responds based on the data supplied by the app and does not invent figures
+- Development-time AI (ChatGPT) supported the design-to-code workflow and code translation
+- Runtime AI (Gemini) enhances user experience through explanation and insight generation
+- The AI is a support tool, not a substitute for professional financial advice
 
 ---
 
